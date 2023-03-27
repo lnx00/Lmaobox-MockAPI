@@ -38,6 +38,15 @@ local MockAPI = {
     callbacks = {}
 }
 
+function MockAPI:InvokeCallback(id, ...)
+    if self.callbacks[id] == nil then
+        return
+    end
+
+    for _, callback in pairs(self.callbacks[id]) do
+        callback(...)
+    end
+end
 
 function callbacks.Register(id, name, callback)
     if MockAPI.callbacks[id] == nil then
