@@ -7,12 +7,12 @@ local function Log(message)
 end
 
 -- Constants
-dofile("MockAPI/Globals.lua")
-dofile("MockAPI/Enums.lua")
+require("MockAPI.Globals")
+require("MockAPI.Enums")
 
 -- Classes
-dofile("MockAPI/Classes/Vector3.lua")
-dofile("MockAPI/Classes/EulerAngles.lua")
+require("MockAPI.Classes.Vector3")
+require("MockAPI.Classes.EulerAngles")
 
 -- Libraries
 aimbot = Mockagne.getMock("Aimbot")
