@@ -1,49 +1,59 @@
-local mockagne = require("MockAPI.mockagne")
+---@diagnostic disable: duplicate-set-field
+
+Mockagne = require("MockAPI.mockagne")
 
 local function Log(message)
     print(string.format("[MockAPI] %s", message))
 end
 
 -- Constants
-dofile("MockAPI/Globals")
-dofile("MockAPI/Enums")
+dofile("MockAPI/Globals.lua")
+dofile("MockAPI/Enums.lua")
 
 -- Classes
 dofile("MockAPI/Classes/Vector3.lua")
 dofile("MockAPI/Classes/EulerAngles.lua")
 
 -- Libraries
-callbacks = mockagne.getMock("Callbacks")
-client = mockagne.getMock("Client")
-clientstate = mockagne.getMock("Clientstate")
-draw = mockagne.getMock("Draw")
-engine = mockagne.getMock("Engine")
-entities = mockagne.getMock("Entities")
-filesystem = mockagne.getMock("FileSystem")
-gamecoordinator = mockagne.getMock("GameCoordinator")
-gamerules = mockagne.getMock("GameRules")
-globals = mockagne.getMock("Globals")
-gui = mockagne.getMock("GUI")
-input = mockagne.getMock("Input")
-inventory = mockagne.getMock("Inventory")
-itemschema = mockagne.getMock("ItemSchema")
-materials = mockagne.getMock("Materials")
-party = mockagne.getMock("Party")
-playerlist = mockagne.getMock("PlayerList")
-steam = mockagne.getMock("Steam")
+aimbot = Mockagne.getMock("Aimbot")
+callbacks = Mockagne.getMock("Callbacks")
+client = Mockagne.getMock("Client")
+clientstate = Mockagne.getMock("Clientstate")
+draw = Mockagne.getMock("Draw")
+engine = Mockagne.getMock("Engine")
+entities = Mockagne.getMock("Entities")
+filesystem = Mockagne.getMock("FileSystem")
+gamecoordinator = Mockagne.getMock("GameCoordinator")
+gamerules = Mockagne.getMock("GameRules")
+globals = Mockagne.getMock("Globals")
+gui = Mockagne.getMock("GUI")
+http = Mockagne.getMock("HTTP")
+input = Mockagne.getMock("Input")
+inventory = Mockagne.getMock("Inventory")
+itemschema = Mockagne.getMock("ItemSchema")
+materials = Mockagne.getMock("Materials")
+models = Mockagne.getMock("Models")
+party = Mockagne.getMock("Party")
+physics = Mockagne.getMock("Physics")
+playerlist = Mockagne.getMock("PlayerList")
+steam = Mockagne.getMock("Steam")
+warp = Mockagne.getMock("Warp")
 
 ---@class MockAPI
 ---@field callbacks table<string, table<string, fun(...)>>
 local MockAPI = {
-    callbacks = {}
+    callbacks = {},
 }
+
+--[[ Callback invocation ]]
 
 function MockAPI:InvokeCallback(id, ...)
     if self.callbacks[id] == nil then
         return
     end
 
-    for _, callback in pairs(self.callbacks[id]) do
+    for name, callback in pairs(self.callbacks[id]) do
+        Log("Invoking callback " .. name .. " for " .. id)
         callback(...)
     end
 end
