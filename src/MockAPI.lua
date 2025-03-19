@@ -1,18 +1,18 @@
 ---@diagnostic disable: duplicate-set-field
 
-Mockagne = require("MockAPI.mockagne")
+Mockagne = require("src.mockagne")
 
 local function Log(message)
     print(string.format("[MockAPI] %s", message))
 end
 
 -- Constants
-require("MockAPI.Globals")
-require("MockAPI.Enums")
+require("src.Globals")
+require("src.Enums")
 
 -- Classes
-require("MockAPI.Classes.Vector3")
-require("MockAPI.Classes.EulerAngles")
+require("src.Classes.Vector3")
+require("src.Classes.EulerAngles")
 
 -- Libraries
 aimbot = Mockagne.getMock("Aimbot")
